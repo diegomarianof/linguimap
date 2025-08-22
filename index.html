@@ -1,33 +1,43 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Declinador Alemán</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ligüimap</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Proyecto lingumap</h1>
+  <header>
+    <h1>Ligüimap</h1>
+    <p>Un proyecto para explorar idiomas de forma interactiva.</p>
+  </header>
 
-  <label for="tipo">Qué querés practicar:</label>
-  <select id="tipo">
-    <option>Artículos definidos</option>
-    <option>Artículos indefinidos</option>
-    <option>Pronombres posesivos</option>
-    <option>Pronombres reflexivos</option>
-    <option>Pronombres demostrativos</option>
-    <option>Desafío</option>
+  <main>
+    <section id="about">
+      <h2>Descripción y objetivos</h2>
+      <p>Ligüimap es una herramienta que busca ayudarte a practicar y comprender distintos idiomas de manera clara y sencilla.</p>
+    </section>
 
-  </select>
+    <section id="languages">
+      <h2>Idiomas</h2>
+      <nav>
+        <ul>
+          <li><a href="#" onclick="showLanguage('aleman')">Alemán</a></li>
+          <li><a href="#" onclick="showLanguage('ingles')">Inglés</a></li>
+          <!-- Podés agregar más idiomas después -->
+        </ul>
+      </nav>
 
-  <div id="opciones">
-    <!-- Campos dinámicos aquí -->
-  </div>
+      <div id="language-content">
+        <p>Selecciona un idioma para comenzar.</p>
+      </div>
+    </section>
+  </main>
 
-  <button id="mostrar">Mostrar resultado</button>
-
-  <h2 id="resultado"></h2>
-  <p id="ejemplo"></p>
-  <p id="explicacion"></p>
+  <footer>
+    <p>Desarrollado por Diego M. Fernández</p>
+    <p>Contacto: <a href="mailto:tuemail@example.com">tuemail@example.com</a></p>
+  </footer>
 
   <script src="app.js"></script>
 </body>
