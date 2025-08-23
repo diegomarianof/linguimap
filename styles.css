@@ -20,11 +20,12 @@ main {
   margin: auto;
 }
 
-h1, h2 {
-  /*color: #004466;*/
+h1 {
   color: white;
 }
-
+h2 {
+  color: #004466;
+}
 nav ul {
   list-style: none;
   padding: 0;
