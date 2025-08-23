@@ -21,7 +21,8 @@ main {
 }
 
 h1, h2 {
-  color: #004466;
+  /*color: #004466;*/
+  color: white;
 }
 
 nav ul {
