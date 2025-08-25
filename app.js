@@ -18,8 +18,9 @@ function showLanguage(language) {
     `;
   } else {
     contentDiv.innerHTML = `
-      <h3>Bienvenido a Ligüimap</h3>
+      <h3>Bienvenido a Lingüimap</h3>
       <p>Selecciona un idioma para comenzar a practicar.</p>
+      <button onclick="showLanguage('aleman')">Alemán</button>
     `;
   }
 }
@@ -62,7 +63,6 @@ function mostrarArticulo() {
   const genero = document.getElementById("genero").value;
   const resultadoDiv = document.getElementById("resultado");
 
-  // Diccionario de artículos definidos (simplificado)
   const articulos = {
     nominativ: { masc: "der Hund", fem: "die Katze", neut: "das Haus", pl: "die Kinder" },
     akkusativ: { masc: "den Hund", fem: "die Katze", neut: "das Haus", pl: "die Kinder" },
