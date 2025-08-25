@@ -8,7 +8,7 @@ function showLanguage(language) {
       <h3>Alemán</h3>
       <ul>
         <li><button onclick="showDefArticles()">Artículos definidos</button></li>
-        <li><button>Artículos indefinidos</button></li>
+        <li><button onclick="showIndefArticles()">Artículos indefinidos</button></li>
         <li><button>Pronombres posesivos</button></li>
         <li><button>Pronombres reflexivos</button></li>
         <li><button>Pronombres demostrativos</button></li>
@@ -71,5 +71,56 @@ function mostrarArticulo() {
   };
 
   const ejemplo = articulos[caso][genero];
+  resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
+}
+
+// ----------- ARTÍCULOS INDEFINIDOS --------------
+
+function showIndefArticles() {
+  const contentDiv = document.getElementById("language-content");
+  contentDiv.innerHTML = `
+    <h3>Artículos indefinidos</h3>
+    
+    <label for="casoIndef">Caso gramatical:</label>
+    <select id="casoIndef">
+      <option value="nominativ">Nominativ</option>
+      <option value="akkusativ">Akkusativ</option>
+      <option value="dativ">Dativ</option>
+      <option value="genitiv">Genitiv</option>
+    </select>
+    
+    <br><br>
+    
+    <label for="generoIndef">Género:</label>
+    <select id="generoIndef">
+      <option value="masc">Maskulin</option>
+      <option value="fem">Feminin</option>
+      <option value="neut">Neutrum</option>
+      <option value="pl">Plural</option>
+    </select>
+    
+    <br><br>
+    
+    <button onclick="mostrarIndefinido()">Mostrar resultado</button>
+    <div id="resultadoIndef"></div>
+    
+    <br><br>
+    <button onclick="showLanguage('aleman')">Volver al inicio</button>
+  `;
+}
+
+function mostrarIndefinido() {
+  const caso = document.getElementById("casoIndef").value;
+  const genero = document.getElementById("generoIndef").value;
+  const resultadoDiv = document.getElementById("resultadoIndef");
+
+  const articulosIndef = {
+    nominativ: { masc: "ein Hund", fem: "eine Katze", neut: "ein Haus", pl: "— Kinder" },
+    akkusativ: { masc: "einen Hund", fem: "eine Katze", neut: "ein Haus", pl: "— Kinder" },
+    dativ: { masc: "einem Hund", fem: "einer Katze", neut: "einem Haus", pl: "— Kindern" },
+    genitiv: { masc: "eines Hundes", fem: "einer Katze", neut: "eines Hauses", pl: "— Kinder" }
+  };
+
+  const ejemplo = articulosIndef[caso][genero];
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
