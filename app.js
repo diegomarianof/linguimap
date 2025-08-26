@@ -124,3 +124,96 @@ function mostrarIndefinido() {
   const ejemplo = articulosIndef[caso][genero];
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
+
+function showPossessivePronouns() {
+  const contentDiv = document.getElementById("language-content");
+  contentDiv.innerHTML = `
+    <h3>Pronombres posesivos</h3>
+    
+    <label for="pronombre">Pronombre personal:</label>
+    <select id="pronombre">
+      <option value="ich">ich (yo)</option>
+      <option value="du">du (tú)</option>
+      <option value="er">er (él)</option>
+      <option value="sie">sie (ella)</option>
+      <option value="es">es (ello)</option>
+      <option value="wir">wir (nosotros)</option>
+      <option value="ihr">ihr (vosotros)</option>
+      <option value="sie_pl">sie (ellos)</option>
+      <option value="Sie">Sie (usted)</option>
+    </select>
+    
+    <br><br>
+    
+    <label for="casoPos">Caso gramatical:</label>
+    <select id="casoPos">
+      <option value="nominativ">Nominativ</option>
+      <option value="akkusativ">Akkusativ</option>
+      <option value="dativ">Dativ</option>
+      <option value="genitiv">Genitiv</option>
+    </select>
+    
+    <br><br>
+    
+    <label for="generoPos">Género / número:</label>
+    <select id="generoPos">
+      <option value="masc">Maskulin</option>
+      <option value="fem">Feminin</option>
+      <option value="neut">Neutrum</option>
+      <option value="pl">Plural</option>
+    </select>
+    
+    <br><br>
+    
+    <button onclick="mostrarPosesivo()">Mostrar resultado</button>
+    <div id="resultadoPos"></div>
+    
+    <br><br>
+    <button onclick="showLanguage('aleman')">Volver al inicio</button>
+  `;
+}
+
+function mostrarPosesivo() {
+  const pronombre = document.getElementById("pronombre").value;
+  const caso = document.getElementById("casoPos").value;
+  const genero = document.getElementById("generoPos").value;
+  const resultadoDiv = document.getElementById("resultadoPos");
+
+  // Radicales de los posesivos
+  const bases = {
+    ich: "mein",
+    du: "dein",
+    er: "sein",
+    sie: "ihr",
+    es: "sein",
+    wir: "unser",
+    ihr: "euer",
+    sie_pl: "ihr",
+    Sie: "Ihr"
+  };
+
+  // Terminaciones según caso/género/número
+  const terminaciones = {
+    nominativ: { masc: "", fem: "e", neut: "", pl: "e" },
+    akkusativ: { masc: "en", fem: "e", neut: "", pl: "e" },
+    dativ: { masc: "em", fem: "er", neut: "em", pl: "en" },
+    genitiv: { masc: "es", fem: "er", neut: "es", pl: "er" }
+  };
+
+  // Ejemplos de sustantivos
+  const ejemplos = {
+    nominativ: { masc: "Hund", fem: "Katze", neut: "Haus", pl: "Kinder" },
+    akkusativ: { masc: "Hund", fem: "Katze", neut: "Haus", pl: "Kinder" },
+    dativ: { masc: "Hund", fem: "Katze", neut: "Haus", pl: "Kindern" },
+    genitiv: { masc: "Hundes", fem: "Katze", neut: "Hauses", pl: "Kinder" }
+  };
+
+  const base = bases[pronombre];
+  const terminacion = terminaciones[caso][genero];
+  const sustantivo = ejemplos[caso][genero];
+
+  const ejemplo = `${base}${terminacion} ${sustantivo}`;
+
+  resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
+}
+
