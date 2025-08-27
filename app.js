@@ -10,8 +10,8 @@ function showLanguage(language) {
         <li><button onclick="showDefArticles()">Artículos definidos</button></li>
         <li><button onclick="showIndefArticles()">Artículos indefinidos</button></li>
         <li><button onclick="showPossessivePronouns()">Pronombres posesivos</button></li>
+        <li><button onclick="showReflexivePronouns()">Pronombres reflexivos</button></li>
 
-        <li><button>Pronombres reflexivos</button></li>
         <li><button>Pronombres demostrativos</button></li>
         <li><button>Desafío</button></li>
       </ul>
@@ -218,4 +218,44 @@ function mostrarPosesivo() {
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
 
+// ==========================
+// PRONOMBRES REFLEXIVOS
+// ==========================
+const reflexivePronouns = {
+  ich: { accusative: "mich", dative: "mir" },
+  du: { accusative: "dich", dative: "dir" },
+  er: { accusative: "sich", dative: "sich" },
+  sie: { accusative: "sich", dative: "sich" },
+  es: { accusative: "sich", dative: "sich" },
+  wir: { accusative: "uns", dative: "uns" },
+  ihr: { accusative: "euch", dative: "euch" },
+  Sie: { accusative: "sich", dative: "sich" }
+};
+
+function showReflexivePronouns() {
+  const contentDiv = document.getElementById("language-content");
+  contentDiv.innerHTML = `
+    <h3>Pronombres reflexivos</h3>
+    <p>Los pronombres reflexivos en alemán dependen de la persona y el caso gramatical (acusativo o dativo).</p>
+    
+    <table border="1" cellpadding="5" cellspacing="0">
+      <tr>
+        <th>Persona</th>
+        <th>Acusativo</th>
+        <th>Dativo</th>
+      </tr>
+      <tr><td>ich</td><td>${reflexivePronouns.ich.accusative}</td><td>${reflexivePronouns.ich.dative}</td></tr>
+      <tr><td>du</td><td>${reflexivePronouns.du.accusative}</td><td>${reflexivePronouns.du.dative}</td></tr>
+      <tr><td>er</td><td>${reflexivePronouns.er.accusative}</td><td>${reflexivePronouns.er.dative}</td></tr>
+      <tr><td>sie</td><td>${reflexivePronouns.sie.accusative}</td><td>${reflexivePronouns.sie.dative}</td></tr>
+      <tr><td>es</td><td>${reflexivePronouns.es.accusative}</td><td>${reflexivePronouns.es.dative}</td></tr>
+      <tr><td>wir</td><td>${reflexivePronouns.wir.accusative}</td><td>${reflexivePronouns.wir.dative}</td></tr>
+      <tr><td>ihr</td><td>${reflexivePronouns.ihr.accusative}</td><td>${reflexivePronouns.ihr.dative}</td></tr>
+      <tr><td>Sie (formal)</td><td>${reflexivePronouns.Sie.accusative}</td><td>${reflexivePronouns.Sie.dative}</td></tr>
+    </table>
+    
+    <p><b>Ejemplo:</b> Ich wasche <u>mich</u>. (Yo me lavo)<br>
+    Ich wasche <u>mir</u> die Hände. (Yo me lavo las manos)</p>
+  `;
+}
 
