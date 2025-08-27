@@ -294,63 +294,72 @@ function mostrarReflexivo() {
 }
 
 // ----------- PRONOMBRES DEMOSTRATIVOS --------------
-function showDemonstrativePronouns() {
+function showDemonstrativPronouns() {
   const contentDiv = document.getElementById("language-content");
   contentDiv.innerHTML = `
     <h3>Pronombres demostrativos</h3>
-    <label for="case">Selecciona el caso gramatical:</label>
-    <select id="case" onchange="updateDemonstrativePronoun()">
-      <option value="">--Elegir--</option>
-      <option value="nominative">Nominativo</option>
-      <option value="accusative">Acusativo</option>
-      <option value="dative">Dativo</option>
-      <option value="genitive">Genitivo</option>
+    
+    <label for="casoDemo">Caso gramatical:</label>
+    <select id="casoDemo">
+      <option value="nominativ">Nominativ</option>
+      <option value="akkusativ">Akkusativ</option>
+      <option value="dativ">Dativ</option>
+      <option value="genitiv">Genitiv</option>
     </select>
-
-    <label for="gender">Selecciona género/número:</label>
-    <select id="gender" onchange="updateDemonstrativePronoun()">
-      <option value="">--Elegir--</option>
-      <option value="masc">Masculino</option>
-      <option value="fem">Femenino</option>
-      <option value="neut">Neutro</option>
-      <option value="plural">Plural</option>
+    
+    <br><br>
+    
+    <label for="generoDemo">Género/Número:</label>
+    <select id="generoDemo">
+      <option value="masc">Maskulin</option>
+      <option value="fem">Feminin</option>
+      <option value="neut">Neutrum</option>
+      <option value="pl">Plural</option>
     </select>
-
-    <p id="demonstrativeResult">👉 Elige opciones para ver el pronombre.</p>
-    <p id="demonstrativeExample"></p>
+    
+    <br><br>
+    
+    <button onclick="mostrarDemostrativo()">Mostrar resultado</button>
+    <div id="resultadoDemo"></div>
+    
+    <br><br>
+    <button onclick="showLanguage('aleman')">Volver al inicio</button>
   `;
 }
 
-function updateDemonstrativePronoun() {
-  const caseValue = document.getElementById("case").value;
-  const genderValue = document.getElementById("gender").value;
-  const result = document.getElementById("demonstrativeResult");
-  const example = document.getElementById("demonstrativeExample");
+function mostrarDemostrativo() {
+  const caso = document.getElementById("casoDemo").value;
+  const genero = document.getElementById("generoDemo").value;
+  const resultadoDiv = document.getElementById("resultadoDemo");
 
-  const demonstratives = {
-    nominative: { masc: "dieser", fem: "diese", neut: "dieses", plural: "diese" },
-    accusative: { masc: "diesen", fem: "diese", neut: "dieses", plural: "diese" },
-    dative: { masc: "diesem", fem: "dieser", neut: "diesem", plural: "diesen" },
-    genitive: { masc: "dieses", fem: "dieser", neut: "dieses", plural: "dieser" },
+  const demostrativos = {
+    nominativ: { 
+      masc: "dieser Hund", 
+      fem: "diese Katze", 
+      neut: "dieses Haus", 
+      pl: "diese Kinder" 
+    },
+    akkusativ: { 
+      masc: "diesen Hund", 
+      fem: "diese Katze", 
+      neut: "dieses Haus", 
+      pl: "diese Kinder" 
+    },
+    dativ: { 
+      masc: "diesem Hund", 
+      fem: "dieser Katze", 
+      neut: "diesem Haus", 
+      pl: "diesen Kindern" 
+    },
+    genitiv: { 
+      masc: "dieses Hundes", 
+      fem: "dieser Katze", 
+      neut: "dieses Hauses", 
+      pl: "dieser Kinder" 
+    }
   };
 
-  if (caseValue && genderValue) {
-    const pronoun = demonstratives[caseValue][genderValue];
-    result.textContent = `✅ Pronombre: ${pronoun}`;
-
-    // Ejemplos simples
-    const examples = {
-      dieser: "Dieser Mann ist groß. (Este hombre es alto.)",
-      diese: "Diese Frau ist freundlich. (Esta mujer es amable.)",
-      dieses: "Dieses Kind spielt. (Este niño juega.)",
-      diesen: "Ich sehe diesen Hund. (Veo a este perro.)",
-      diesem: "Ich gebe diesem Mann ein Buch. (Le doy un libro a este hombre.)",
-      dieser: "Das Auto dieser Frau ist neu. (El auto de esta mujer es nuevo.)"
-    };
-
-    example.textContent = examples[pronoun] || "";
-  } else {
-    result.textContent = "👉 Elige opciones para ver el pronombre.";
-    example.textContent = "";
-  }
+  const ejemplo = demostrativos[caso][genero];
+  resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
+
