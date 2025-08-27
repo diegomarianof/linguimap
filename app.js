@@ -218,44 +218,68 @@ function mostrarPosesivo() {
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
 
-// ==========================
-// PRONOMBRES REFLEXIVOS
-// ==========================
-const reflexivePronouns = {
-  ich: { accusative: "mich", dative: "mir" },
-  du: { accusative: "dich", dative: "dir" },
-  er: { accusative: "sich", dative: "sich" },
-  sie: { accusative: "sich", dative: "sich" },
-  es: { accusative: "sich", dative: "sich" },
-  wir: { accusative: "uns", dative: "uns" },
-  ihr: { accusative: "euch", dative: "euch" },
-  Sie: { accusative: "sich", dative: "sich" }
-};
-
 function showReflexivePronouns() {
   const contentDiv = document.getElementById("language-content");
+
   contentDiv.innerHTML = `
     <h3>Pronombres reflexivos</h3>
-    <p>Los pronombres reflexivos en alemán dependen de la persona y el caso gramatical (acusativo o dativo).</p>
-    
-    <table border="1" cellpadding="5" cellspacing="0">
-      <tr>
-        <th>Persona</th>
-        <th>Acusativo</th>
-        <th>Dativo</th>
-      </tr>
-      <tr><td>ich</td><td>${reflexivePronouns.ich.accusative}</td><td>${reflexivePronouns.ich.dative}</td></tr>
-      <tr><td>du</td><td>${reflexivePronouns.du.accusative}</td><td>${reflexivePronouns.du.dative}</td></tr>
-      <tr><td>er</td><td>${reflexivePronouns.er.accusative}</td><td>${reflexivePronouns.er.dative}</td></tr>
-      <tr><td>sie</td><td>${reflexivePronouns.sie.accusative}</td><td>${reflexivePronouns.sie.dative}</td></tr>
-      <tr><td>es</td><td>${reflexivePronouns.es.accusative}</td><td>${reflexivePronouns.es.dative}</td></tr>
-      <tr><td>wir</td><td>${reflexivePronouns.wir.accusative}</td><td>${reflexivePronouns.wir.dative}</td></tr>
-      <tr><td>ihr</td><td>${reflexivePronouns.ihr.accusative}</td><td>${reflexivePronouns.ihr.dative}</td></tr>
-      <tr><td>Sie (formal)</td><td>${reflexivePronouns.Sie.accusative}</td><td>${reflexivePronouns.Sie.dative}</td></tr>
-    </table>
-    
-    <p><b>Ejemplo:</b> Ich wasche <u>mich</u>. (Yo me lavo)<br>
-    Ich wasche <u>mir</u> die Hände. (Yo me lavo las manos)</p>
+    <p>Selecciona un pronombre y un caso gramatical para ver la forma reflexiva.</p>
+    <label for="pronombre">Pronombre:</label>
+    <select id="pronombre">
+      <option value="ich">ich</option>
+      <option value="du">du</option>
+      <option value="er">er</option>
+      <option value="sie">sie (ella)</option>
+      <option value="es">es</option>
+      <option value="wir">wir</option>
+      <option value="ihr">ihr</option>
+      <option value="siePlural">sie (ellos/ellas)</option>
+      <option value="Sie">Sie (usted/ustedes)</option>
+    </select>
+
+    <label for="caso">Caso:</label>
+    <select id="caso">
+      <option value="acusativo">Acusativo</option>
+      <option value="dativo">Dativo</option>
+    </select>
+
+    <button onclick="mostrarReflexivo()">Mostrar</button>
+
+    <div id="resultado"></div>
   `;
 }
+
+function mostrarReflexivo() {
+  const pronombre = document.getElementById("pronombre").value;
+  const caso = document.getElementById("caso").value;
+
+  // Tabla de pronombres reflexivos
+  const reflexivos = {
+    ich: { acusativo: "mich", dativo: "mir" },
+    du: { acusativo: "dich", dativo: "dir" },
+    er: { acusativo: "sich", dativo: "sich" },
+    sie: { acusativo: "sich", dativo: "sich" },
+    es: { acusativo: "sich", dativo: "sich" },
+    wir: { acusativo: "uns", dativo: "uns" },
+    ihr: { acusativo: "euch", dativo: "euch" },
+    siePlural: { acusativo: "sich", dativo: "sich" },
+    Sie: { acusativo: "sich", dativo: "sich" }
+  };
+
+  const resultado = reflexivos[pronombre][caso];
+
+  // Ejemplo de uso
+  let ejemplo = "";
+  if (caso === "acusativo") {
+    ejemplo = `Ich wasche <b>${resultado}</b>. (Yo me lavo)`;
+  } else {
+    ejemplo = `Ich kaufe <b>${resultado}</b> ein Buch. (Me compro un libro)`;
+  }
+
+  document.getElementById("resultado").innerHTML = `
+    <p><b>Resultado:</b> ${resultado}</p>
+    <p><b>Ejemplo:</b> ${ejemplo}</p>
+  `;
+}
+
 
