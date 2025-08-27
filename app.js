@@ -11,7 +11,7 @@ function showLanguage(language) {
         <li><button onclick="showIndefArticles()">Artículos indefinidos</button></li>
         <li><button onclick="showPossessivePronouns()">Pronombres posesivos</button></li>
         <li><button onclick="showReflexivePronouns()">Pronombres reflexivos</button></li>
-        <li><button onclick="showDemonstrativePronouns()">Pronombres demostrativos</button></li>
+        <li><button onclick="showDemonstrativPronouns()">Pronombres demostrativos</button></li>
 
         <li><button>Desafío</button></li>
       </ul>
@@ -362,4 +362,5 @@ function mostrarDemostrativo() {
   const ejemplo = demostrativos[caso][genero];
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
+
 
