@@ -312,7 +312,8 @@ function mostrarReflexivo() {
   }
 };
 
-  const ejemplo = ejemplos[pronombre]?.[caso] || "";
+const ejemplo = ejemplos[pronombre]?.[caso] || "";
+
 
   if (forma) {
     resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${forma}<br>Ejemplo: ${ejemplo}</p>`;
