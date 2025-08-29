@@ -101,9 +101,10 @@ function showIndefArticles() {
     </select>
     
     <br><br>
-
+    
+    <!-- ACÁ EL CHECKBOX -->
     <label>
-      <input type="checkbox" id="negativoIndef"> Mostrar forma negativa (kein)
+      <input type="checkbox" id="negacionIndef"> Forma negativa (kein-)
     </label>
     
     <br><br>
@@ -119,29 +120,30 @@ function showIndefArticles() {
 function mostrarIndefinido() {
   const caso = document.getElementById("casoIndef").value;
   const genero = document.getElementById("generoIndef").value;
-  const negativo = document.getElementById("negativoIndef").checked;
+  const usarNegacion = document.getElementById("negacionIndef").checked; // ← si está tildado
   const resultadoDiv = document.getElementById("resultadoIndef");
 
   const articulosIndef = {
     nominativ: { masc: "ein Hund", fem: "eine Katze", neut: "ein Haus", pl: "— Kinder" },
     akkusativ: { masc: "einen Hund", fem: "eine Katze", neut: "ein Haus", pl: "— Kinder" },
-    dativ: { masc: "einem Hund", fem: "einer Katze", neut: "einem Haus", pl: "— Kindern" },
-    genitiv: { masc: "eines Hundes", fem: "einer Katze", neut: "eines Hauses", pl: "— Kinder" }
+    dativ:    { masc: "einem Hund", fem: "einer Katze", neut: "einem Haus", pl: "— Kindern" },
+    genitiv:  { masc: "eines Hundes", fem: "einer Katze", neut: "eines Hauses", pl: "— Kinder" }
   };
 
   const articulosNeg = {
     nominativ: { masc: "kein Hund", fem: "keine Katze", neut: "kein Haus", pl: "keine Kinder" },
     akkusativ: { masc: "keinen Hund", fem: "keine Katze", neut: "kein Haus", pl: "keine Kinder" },
-    dativ: { masc: "keinem Hund", fem: "keiner Katze", neut: "keinem Haus", pl: "keinen Kindern" },
-    genitiv: { masc: "keines Hundes", fem: "keiner Katze", neut: "keines Hauses", pl: "keiner Kinder" }
+    dativ:    { masc: "keinem Hund", fem: "keiner Katze", neut: "keinem Haus", pl: "keinen Kindern" },
+    genitiv:  { masc: "keines Hundes", fem: "keiner Katze", neut: "keines Hauses", pl: "keiner Kinder" }
   };
 
-  const ejemplo = negativo 
-      ? articulosNeg[caso][genero] 
-      : articulosIndef[caso][genero];
+  const ejemplo = usarNegacion 
+    ? articulosNeg[caso][genero] 
+    : articulosIndef[caso][genero];
 
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
+
 
 function showPossessivePronouns() {
   const contentDiv = document.getElementById("language-content");
