@@ -217,7 +217,6 @@ function mostrarPosesivo() {
 
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
-
 // ----------- PRONOMBRES REFLEXIVOS --------------
 
 function showReflexivePronouns() {
@@ -273,46 +272,18 @@ function mostrarReflexivo() {
     Sie: { acusativo: "sich", dativo: "sich" }
   };
 
-  const ejemplos = {
-  ich: {
-    acusativo: "Ich wasche mich. (Me lavo.)",
-    dativo: "Ich wasche mir die Hände. (Me lavo las manos.)"
-  },
-  du: {
-    acusativo: "Du siehst dich im Spiegel. (Te ves en el espejo.)",
-    dativo: "Du kaufst dir ein Buch. (Te compras un libro.)"
-  },
-  er: {
-    acusativo: "Er wäscht sich. (Él se lava.)",
-    dativo: "Er zieht sich eine Jacke an. (Él se pone una campera.)"
-  },
-  sie: {
-    acusativo: "Sie schminkt sich. (Ella se maquilla.)",
-    dativo: "Sie kämmt sich die Haare. (Ella se peina el pelo.)"
-  },
-  es: {
-    acusativo: "Es bewegt sich. (Ello se mueve.)",
-    dativo: "Es stellt sich einen Stuhl vor. (Se imagina una silla.)"
-  },
-  wir: {
-    acusativo: "Wir freuen uns. (Nos alegramos.)",
-    dativo: "Wir nehmen uns Zeit. (Nos tomamos tiempo.)"
-  },
-  ihr: {
-    acusativo: "Ihr seht euch im Spiegel. (Ustedes se ven en el espejo.)",
-    dativo: "Ihr nehmt euch eine Pause. (Ustedes se toman un descanso.)"
-  },
-  sie_pl: {
-    acusativo: "Sie setzen sich. (Ellos se sientan.)",
-    dativo: "Sie kaufen sich ein Auto. (Ellos se compran un auto.)"
-  },
-  Sie: {
-    acusativo: "Sie setzen sich, bitte. (Siéntese, por favor.)",
-    dativo: "Sie nehmen sich Zeit. (Usted se toma tiempo.)"
-  }
-};
+const ejemplos = {
+    mich: "Ich wasche mich. (Me lavo.)",
+    mir: "Ich wasche mir die Hände. (Me lavo las manos.)",
+    dich: "Ich sehe dich. (Te veo.)",
+    dir: "Ich helfe dir. (Te ayudo.)",
+    sich: "Er wäscht sich. (Él se lava.)",
+    uns: "Wir freuen uns. (Nos alegramos.)",
+    euch: "Ich sehe euch. (Los veo.)"
+  };
 
-const ejemplo = ejemplos[pronombre]?.[caso] || "";
+  const forma = reflexivos[pronombre]?.[caso];
+  const ejemplo = ejemplos[forma] ||
 
 
   if (forma) {
