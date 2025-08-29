@@ -1,5 +1,51 @@
 // app.js
 
+// ----- BLOQUE DE DATOS Y FUNCIONES DEL QUIZ -----
+// Casos y géneros
+const casos = ["nominativ", "akkusativ", "dativ", "genitiv"];
+const generos = ["masc", "fem", "neut", "pl"];
+
+// Pronombres personales
+const pronombres = ["ich","du","er","sie","es","wir","ihr","sie_pl","Sie"];
+
+// Artículos definidos
+const articulosDefinidos = {
+  nominativ: { masc: "der", fem: "die", neut: "das", pl: "die" },
+  akkusativ: { masc: "den", fem: "die", neut: "das", pl: "die" },
+  dativ: { masc: "dem", fem: "der", neut: "dem", pl: "den" },
+  genitiv: { masc: "des", fem: "der", neut: "des", pl: "der" }
+};
+
+// Pronombres reflexivos
+const pronombresReflexivos = {
+  ich: { akkusativ: "mich", dativ: "mir" },
+  du: { akkusativ: "dich", dativ: "dir" },
+  er: { akkusativ: "sich", dativ: "sich" },
+  sie: { akkusativ: "sich", dativ: "sich" },
+  es: { akkusativ: "sich", dativ: "sich" },
+  wir: { akkusativ: "uns", dativ: "uns" },
+  ihr: { akkusativ: "euch", dativ: "euch" },
+  sie_pl: { akkusativ: "sich", dativ: "sich" },
+  Sie: { akkusativ: "sich", dativ: "sich" }
+};
+
+function generarPregunta() {
+  const tipo = ["definido", "reflexivo", "posesivo", "demostrativo", "indefinido"];
+  const elegido = tipo[Math.floor(Math.random() * tipo.length)];
+  return { tipo: elegido, texto: "Pregunta de ejemplo", correcta: "respuesta", opciones: ["a","b","c"] };
+}
+
+function generarPreguntasRonda(cantidad = 10) {
+  const preguntas = [];
+  for (let i=0; i<cantidad; i++) {
+    preguntas.push(generarPregunta());
+  }
+  return preguntas;
+}
+
+// ----- FIN BLOQUE DATOS Y GENERACIÓN -----
+
+
 function showLanguage(language) {
   const contentDiv = document.getElementById("language-content");
 
@@ -12,8 +58,9 @@ function showLanguage(language) {
         <li><button onclick="showPossessivePronouns()">Pronombres posesivos</button></li>
         <li><button onclick="showReflexivePronouns()">Pronombres reflexivos</button></li>
         <li><button onclick="showDemonstrativPronouns()">Pronombres demostrativos</button></li>
+        <li><button onclick="iniciarDesafio()">Desafío</button></li>
 
-        <li><button>Desafío</button></li>
+        <!-- <li><button>Desafío</button></li> -->
       </ul>
       <button onclick="showLanguage('')">Volver al inicio</button>
     `;
@@ -389,6 +436,225 @@ function mostrarDemostrativo() {
 
   const ejemplo = demostrativos[caso][genero];
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
+}
+//  ------- DESAFÍO------
+function iniciarDesafio() {
+  const contentDiv = document.getElementById("language-content");
+
+  contentDiv.innerHTML = `
+    <h3>Desafío de alemán</h3>
+    <div id="pregunta"></div>
+    <div id="opciones"></div>
+    <div id="resultado"></div>
+    <div id="puntos">Puntos: 0</div>
+    <button id="btnResponder">Responder</button>
+    <button id="btnSiguiente" disabled>Siguiente</button>
+    <br><br>
+    <button onclick="showLanguage('aleman')">← Volver al inicio</button>
+  `;
+}
+// ----------- DESAFÍO ALEATORIO --------------
+
+function generar_opciones_unicas(correcta, opciones_posibles, cantidad=3) {
+  const opciones_filtradas = opciones_posibles.filter(o => o !== correcta);
+  const opciones = [];
+
+  while (opciones.length < cantidad - 1 && opciones_filtradas.length > 0) {
+    const idx = Math.floor(Math.random() * opciones_filtradas.length);
+    opciones.push(opciones_filtradas.splice(idx, 1)[0]);
+  }
+
+  opciones.push(correcta);
+
+  while (opciones.length < cantidad) {
+    const extra = opciones_posibles[Math.floor(Math.random() * opciones_posibles.length)];
+    if (!opciones.includes(extra)) opciones.push(extra);
+  }
+
+  return opciones.sort(() => Math.random() - 0.5);
+}
+
+function generar_preguntas() {
+  const casos = ["nominativ", "akkusativ", "dativ", "genitiv"];
+  const generos = ["masc", "fem", "neut", "pl"];
+  const pronombres = ["ich","du","er","sie","es","wir","ihr","sie_pl","Sie"];
+  
+  const pronombres_reflexivos = {
+    ich: { akkusativ: "mich", dativ: "mir" },
+    du: { akkusativ: "dich", dativ: "dir" },
+    er: { akkusativ: "sich", dativ: "sich" },
+    sie: { akkusativ: "sich", dativ: "sich" },
+    es: { akkusativ: "sich", dativ: "sich" },
+    wir: { akkusativ: "uns", dativ: "uns" },
+    ihr: { akkusativ: "euch", dativ: "euch" },
+    sie_pl: { akkusativ: "sich", dativ: "sich" },
+    Sie: { akkusativ: "sich", dativ: "sich" }
+  };
+
+  const articulos_definidos = {
+    nominativ: { masc: "der", fem: "die", neut: "das", pl: "die" },
+    akkusativ: { masc: "den", fem: "die", neut: "das", pl: "die" },
+    dativ: { masc: "dem", fem: "der", neut: "dem", pl: "den" },
+    genitiv: { masc: "des", fem: "der", neut: "des", pl: "der" }
+  };
+
+  const articulos_indefinidos = {
+    nominativ: { masc: "ein", fem: "eine", neut: "ein" },
+    akkusativ: { masc: "einen", fem: "eine", neut: "ein" },
+    dativ:    { masc: "einem", fem: "einer", neut: "einem" },
+    genitiv:  { masc: "eines", fem: "einer", neut: "eines" }
+  };
+
+  const pronombres_demostrativos = {
+    nominativ: { masc: "dieser", fem: "diese", neut: "dieses", pl: "diese" },
+    akkusativ: { masc: "diesen", fem: "diese", neut: "dieses", pl: "diese" },
+    dativ: { masc: "diesem", fem: "dieser", neut: "diesem", pl: "diesen" },
+    genitiv: { masc: "dieses", fem: "dieser", neut: "dieses", pl: "dieser" }
+  };
+
+  const posesivos_base = {
+    ich: "mein", du: "dein", er: "sein", sie: "ihr", es: "sein",
+    wir: "unser", ihr: "euer", sie_pl: "ihr", Sie: "Ihr"
+  };
+
+  const posesivo_declinado = {
+    nominativ: { masc: "", fem: "e", neut: "", pl: "e" },
+    akkusativ: { masc: "en", fem: "e", neut: "", pl: "e" },
+    dativ: { masc: "em", fem: "er", neut: "em", pl: "en" },
+    genitiv: { masc: "es", fem: "er", neut: "es", pl: "er" }
+  };
+
+  const preguntas = [];
+
+  while (preguntas.length < 10) {
+    const tipo = ["definido","indefinido","demostrativo","posesivo","reflexivo"][Math.floor(Math.random()*5)];
+    const caso = casos[Math.floor(Math.random()*casos.length)];
+    const genero = generos[Math.floor(Math.random()*generos.length)];
+
+    if (tipo === "reflexivo") {
+      const pron = pronombres[Math.floor(Math.random()*pronombres.length)];
+      const correcta = pronombres_reflexivos[pron][caso==="akkusativ"?"akkusativ":"dativ"];
+      const opciones = generar_opciones_unicas(correcta, pronombres.map(p=>pronombres_reflexivos[p][caso==="akkusativ"?"akkusativ":"dativ"]));
+      preguntas.push({texto:`¿Reflexivo para '${pron}' en ${caso}?`, respuesta: correcta, opciones});
+    }
+    else if (tipo === "definido") {
+      const correcta = articulos_definidos[caso][genero];
+      const opciones = generar_opciones_unicas(correcta, [].concat(...Object.values(articulos_definidos).map(g=>Object.values(g))));
+      preguntas.push({texto:`Artículo definido en ${caso}, ${genero}:`, respuesta: correcta, opciones});
+    }
+    else if (tipo === "indefinido") {
+      if(genero==="pl") continue;
+      const correcta = articulos_indefinidos[caso][genero];
+      const opciones = generar_opciones_unicas(correcta, [].concat(...Object.values(articulos_indefinidos).map(g=>Object.values(g))));
+      preguntas.push({texto:`Artículo indefinido en ${caso}, ${genero}:`, respuesta: correcta, opciones});
+    }
+    else if (tipo === "demostrativo") {
+      const correcta = pronombres_demostrativos[caso][genero];
+      const opciones = generar_opciones_unicas(correcta, [].concat(...Object.values(pronombres_demostrativos).map(g=>Object.values(g))));
+      preguntas.push({texto:`Pronombre demostrativo en ${caso}, ${genero}:`, respuesta: correcta, opciones});
+    }
+    else if (tipo === "posesivo") {
+      const pron = pronombres[Math.floor(Math.random()*pronombres.length)];
+      let base = posesivos_base[pron];
+      const terminacion = posesivo_declinado[caso][genero];
+      if(base.endsWith("euer") && terminacion && !terminacion.startsWith("e")) base="eur";
+      const correcta = base + terminacion;
+      const opciones = generar_opciones_unicas(correcta, pronombres.map(p=>{
+        let b = posesivos_base[p];
+        if(b.endsWith("euer") && terminacion && !terminacion.startsWith("e")) b="eur";
+        return b + terminacion;
+      }));
+      preguntas.push({texto:`Pronombre posesivo para '${pron}' en ${caso}, ${genero}:`, respuesta: correcta, opciones});
+    }
+  }
+
+  return preguntas;
+}
+
+function iniciarDesafio() {
+  const contentDiv = document.getElementById("language-content");
+  contentDiv.innerHTML = `
+    <h3>Desafío de alemán</h3>
+    <div id="pregunta"></div>
+    <div id="opciones"></div>
+    <div id="puntos">Puntos: 0</div>
+    <div id="resultado"></div>
+    <button id="botonResponder">Responder</button>
+    <button id="botonSiguiente" disabled>Siguiente</button>
+    <button id="botonReiniciar">Reiniciar</button>
+    <button onclick="showLanguage('aleman')">← Volver al inicio</button>
+  `;
+
+  const preguntas = generar_preguntas();
+  const estado = {indice:0, puntos:0};
+  const preguntaDiv = document.getElementById("pregunta");
+  const opcionesDiv = document.getElementById("opciones");
+  const puntosDiv = document.getElementById("puntos");
+  const resultadoDiv = document.getElementById("resultado");
+  const botonResponder = document.getElementById("botonResponder");
+  const botonSiguiente = document.getElementById("botonSiguiente");
+  const botonReiniciar = document.getElementById("botonReiniciar");
+
+  function mostrarPregunta() {
+    opcionesDiv.innerHTML="";
+    resultadoDiv.innerText="";
+    botonResponder.disabled=false;
+    botonSiguiente.disabled=true;
+
+    if(estado.indice>=preguntas.length){
+      preguntaDiv.innerText=`¡Fin del desafío! Puntos finales: ${estado.puntos}/${preguntas.length}`;
+      botonResponder.style.display="none";
+      botonSiguiente.style.display="none";
+      return;
+    }
+
+    const actual = preguntas[estado.indice];
+    preguntaDiv.innerText=`Pregunta ${estado.indice+1}: ${actual.texto}`;
+
+    actual.opciones.forEach(op=>{
+      const rb = document.createElement("input");
+      rb.type="radio";
+      rb.name="respuesta";
+      rb.value=op;
+      rb.id=op;
+      const label = document.createElement("label");
+      label.htmlFor=op;
+      label.innerText=op;
+      const br = document.createElement("br");
+      opcionesDiv.appendChild(rb);
+      opcionesDiv.appendChild(label);
+      opcionesDiv.appendChild(br);
+    });
+  }
+
+  botonResponder.onclick=function(){
+    const selected = document.querySelector('input[name="respuesta"]:checked');
+    if(!selected) return;
+    botonResponder.disabled=true;
+    botonSiguiente.disabled=false;
+    const actual = preguntas[estado.indice];
+    if(selected.value===actual.respuesta){
+      estado.puntos++;
+      resultadoDiv.innerText="✔ Correcto";
+    } else {
+      resultadoDiv.innerText=`✘ Incorrecto. Era: ${actual.respuesta}`;
+    }
+    puntosDiv.innerText=`Puntos: ${estado.puntos}`;
+  };
+
+  botonSiguiente.onclick=function(){
+    estado.indice++;
+    mostrarPregunta();
+  };
+
+  botonReiniciar.onclick=function(){
+    estado.indice=0;
+    estado.puntos=0;
+    puntosDiv.innerText="Puntos: 0";
+    mostrarPregunta();
+  };
+
+  mostrarPregunta();
 }
 
 
