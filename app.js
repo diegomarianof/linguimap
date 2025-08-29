@@ -104,7 +104,7 @@ function showIndefArticles() {
     
     <!-- ACÁ EL CHECKBOX -->
     <label>
-      <input type="checkbox" id="negacionIndef"> Forma negativa (kein-)
+      <input type="checkbox" id="negacionIndef"> Forma negativa
     </label>
     
     <br><br>
