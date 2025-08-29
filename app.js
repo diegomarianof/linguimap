@@ -101,6 +101,12 @@ function showIndefArticles() {
     </select>
     
     <br><br>
+
+    <label>
+      <input type="checkbox" id="negativoIndef"> Mostrar forma negativa (kein)
+    </label>
+    
+    <br><br>
     
     <button onclick="mostrarIndefinido()">Mostrar resultado</button>
     <div id="resultadoIndef"></div>
@@ -113,6 +119,7 @@ function showIndefArticles() {
 function mostrarIndefinido() {
   const caso = document.getElementById("casoIndef").value;
   const genero = document.getElementById("generoIndef").value;
+  const negativo = document.getElementById("negativoIndef").checked;
   const resultadoDiv = document.getElementById("resultadoIndef");
 
   const articulosIndef = {
@@ -122,7 +129,17 @@ function mostrarIndefinido() {
     genitiv: { masc: "eines Hundes", fem: "einer Katze", neut: "eines Hauses", pl: "— Kinder" }
   };
 
-  const ejemplo = articulosIndef[caso][genero];
+  const articulosNeg = {
+    nominativ: { masc: "kein Hund", fem: "keine Katze", neut: "kein Haus", pl: "keine Kinder" },
+    akkusativ: { masc: "keinen Hund", fem: "keine Katze", neut: "kein Haus", pl: "keine Kinder" },
+    dativ: { masc: "keinem Hund", fem: "keiner Katze", neut: "keinem Haus", pl: "keinen Kindern" },
+    genitiv: { masc: "keines Hundes", fem: "keiner Katze", neut: "keines Hauses", pl: "keiner Kinder" }
+  };
+
+  const ejemplo = negativo 
+      ? articulosNeg[caso][genero] 
+      : articulosIndef[caso][genero];
+
   resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
 }
 
