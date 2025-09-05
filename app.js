@@ -53,6 +53,7 @@ function showLanguage(language) {
     contentDiv.innerHTML = `
       <h3>Alemán</h3>
       <ul>
+        <li><button onclick="showPronombresPersonales()">Pronombres personales</button></li>
         <li><button onclick="showDefArticles()">Artículos definidos</button></li>
         <li><button onclick="showIndefArticles()">Artículos indefinidos</button></li>
         <li><button onclick="showPossessivePronouns()">Pronombres posesivos</button></li>
@@ -73,6 +74,75 @@ function showLanguage(language) {
   }
 }
 
+// ----------- PRONOMBRES PERSONALES --------------
+function showPronombresPersonales() {
+  const contentDiv = document.getElementById("language-content");
+  contentDiv.innerHTML = `
+    <h3>Pronombres personales</h3>
+
+    <label for="casoPers">Caso gramatical:</label>
+    <select id="casoPers">
+      <option value="nominativ">Nominativ</option>
+      <option value="akkusativ">Akkusativ</option>
+      <option value="dativ">Dativ</option>
+      <option value="genitiv">Genitiv</option>
+    </select>
+
+    <br><br>
+
+    <label for="pronPers">Pronombre:</label>
+    <select id="pronPers">
+      <option value="ich">ich</option>
+      <option value="du">du</option>
+      <option value="er">er</option>
+      <option value="sie">sie</option>
+      <option value="es">es</option>
+      <option value="wir">wir</option>
+      <option value="ihr">ihr</option>
+      <option value="sie_pl">sie (plural)</option>
+      <option value="Sie">Sie (formal)</option>
+    </select>
+
+    <br><br>
+
+    <button onclick="mostrarPersonal()">Mostrar resultado</button>
+    <div id="resultadoPers"></div>
+
+    <br><br>
+    <button onclick="showLanguage('aleman')">← Volver al inicio</button>
+  `;
+}
+
+function mostrarPersonal() {
+  const caso = document.getElementById("casoPers").value;
+  const pron = document.getElementById("pronPers").value;
+  const resultadoDiv = document.getElementById("resultadoPers");
+
+  const pronombresPersonales = {
+    nominativ: {
+      ich: "ich", du: "du", er: "er", sie: "sie", es: "es",
+      wir: "wir", ihr: "ihr", sie_pl: "sie", Sie: "Sie"
+    },
+    akkusativ: {
+      ich: "mich", du: "dich", er: "ihn", sie: "sie", es: "es",
+      wir: "uns", ihr: "euch", sie_pl: "sie", Sie: "Sie"
+    },
+    dativ: {
+      ich: "mir", du: "dir", er: "ihm", sie: "ihr", es: "ihm",
+      wir: "uns", ihr: "euch", sie_pl: "ihnen", Sie: "Ihnen"
+    },
+    genitiv: {
+      ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner",
+      wir: "unser", ihr: "euer", sie_pl: "ihrer", Sie: "Ihrer"
+    }
+  };
+
+  const ejemplo = pronombresPersonales[caso][pron];
+  resultadoDiv.innerHTML = `<p><strong>Resultado:</strong> ${ejemplo}</p>`;
+}
+
+
+// ----------- ARTÍCULOS DEFINIDOS --------------
 function showDefArticles() {
   const contentDiv = document.getElementById("language-content");
   contentDiv.innerHTML = `
