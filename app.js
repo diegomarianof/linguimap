@@ -74,7 +74,7 @@ function showLanguage(language) {
   }
 }
 
-// ----------- PRONOMBRES PERSONALES --------------
+// ----------- PRONOMBRES PERSONALES -------------
 function showPronombresPersonales() {
   const contentDiv = document.getElementById("language-content");
   contentDiv.innerHTML = `
